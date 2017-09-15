@@ -49,7 +49,7 @@ public class Utility {
                     City city = new City();
                     city.setCityName(cityObject.getString("name"));
                     city.setCityCode(cityObject.getInt("id"));
-                    city.setPrivinceId(provinceId);
+                    city.setProvinceId(provinceId);
                     city.save();
                 }
                 return true;
@@ -69,10 +69,12 @@ public class Utility {
             try {
                 JSONArray allCounties = new JSONArray(response);
                 for (int i = 0; i < allCounties.length(); i++) {
-                    JSONObject cityObject = allCounties.getJSONObject(i);
+                    JSONObject countyObject = allCounties.getJSONObject(i);
                     County county = new County();
-                    county.setCountryName(cityObject.getString("name"));
-                    county.setCityId(cityObject.getInt("id"));
+                    county.setCountryName(countyObject.getString("name"));
+                    county.setWeatherId(countyObject.getString("weather_id"));
+                    // 数据库操作错误导致浪费至少4个小时时间，该死
+                    // county.setCityId(countyObject.getInt("id"));
                     county.setCityId(cityId);
                     county.save();
                 }
